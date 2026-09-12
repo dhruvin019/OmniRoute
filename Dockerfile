@@ -1,4 +1,4 @@
-# Use Node 20 Alpine (small, secure)
+# Use Node 20 Alpine (small, secure) - includes 'node' user (UID 1000, GID 1000)
 FROM node:20-alpine
 
 # Install dumb-init for proper signal handling + sqlite for OmniRoute
@@ -10,14 +10,11 @@ WORKDIR /app
 # Install OmniRoute globally (pinned version)
 RUN npm install -g omniroute@3.8.50
 
-# Create non-root user
-RUN addgroup -g 1000 -S nodejs && \
-    adduser -S nodejs -u 1000
+# Create data directory with correct permissions for existing 'node' user
+RUN mkdir -p /data && chown -R node:node /data
 
-# Create data directory with correct permissions
-RUN mkdir -p /data && chown -R nodejs:nodejs /data
-
-USER nodejs
+# Switch to existing non-root 'node' user (UID 1000, GID 1000)
+USER node
 
 # Expose port (Render sets PORT env var, default 20128)
 EXPOSE 20128
