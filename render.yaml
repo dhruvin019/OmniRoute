@@ -1,0 +1,32 @@
+# Render.com deployment config for OmniRoute
+# Free tier: 750 hrs/month, spins down after 15 min inactivity
+# No credit card required!
+
+services:
+  - type: web
+    name: omniroute
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: free
+    region: oregon  # or frankfurt, singapore, virginia
+    autoDeploy: true
+    healthCheckPath: /health
+    envVars:
+      - key: OMNIROUTE_BASE_URL
+        value: https://omniroute.onrender.com
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: "20128"
+      - key: OMNIROUTE_DATA_DIR
+        value: "/data"
+      # Secrets - set these in Render Dashboard (Environment tab)
+      - key: STORAGE_ENCRYPTION_KEY
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: GOOGLE_API_KEY
+        sync: false

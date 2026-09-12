@@ -1,0 +1,45 @@
+# Git
+.git
+.gitignore
+
+# Render / Docker
+render.yaml
+Dockerfile
+.dockerignore
+
+# Local data (Render free tier has NO persistent disk)
+# Data will be lost on deploy/restart unless you upgrade to paid plan
+storage.sqlite
+storage.sqlite-shm
+storage.sqlite-wal
+call_logs/
+logs/
+db_backups/
+supervisor/
+
+# Environment files (use Render Dashboard secrets instead)
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+
+# Testing
+coverage/
+.nyc_output/
+
+# Misc
+*.tmp
+*.temp
